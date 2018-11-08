@@ -1,8 +1,6 @@
 # Gestionix.Utils.API
 
-###Install
-
-####Steps
+**Install**
 
 `$ npm install`
 
