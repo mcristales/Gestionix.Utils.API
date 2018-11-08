@@ -1,12 +1,11 @@
-// note_routes.js
 var ObjectID = require('mongodb').ObjectID;
 
 module.exports = function(app, db) {
 
-  app.get('/notes/:id', (req, res) => {
+  app.get('/key/:id', (req, res) => {
     const id = req.params.id;
     const details = { '_id': new ObjectID(id) };
-    db.collection('notes').findOne(details, (err, item) => {
+    db.collection('key').findOne(details, (err, item) => {
       if (err) {
         res.send({'error':'An error has occurred'});
       } else {
@@ -15,9 +14,9 @@ module.exports = function(app, db) {
     });
   });
 
-app.post('/notes', (req, res) => {
-    const note = { text: req.body.body, title: req.body.title };
-    db.collection('notes').insert(note, (err, result) => {
+app.post('/key', (req, res) => {
+    const key = { apikey: req.body.apikey, title: req.body.description };
+    db.collection('key').insert(key, (err, result) => {
       if (err) { 
         res.send({ 'error': 'An error has occurred' }); 
       } else {
@@ -26,23 +25,23 @@ app.post('/notes', (req, res) => {
     });
   });
 
-  app.put('/notes/:id', (req, res) => {
+  app.put('/key/:id', (req, res) => {
     const id = req.params.id;
     const details = { '_id': new ObjectID(id) };
-    const note = { text: req.body.body, title: req.body.title };
-    db.collection('notes').update(details, note, (err, result) => {
+    const key = { apikey: req.body.apikey, title: req.body.description };
+    db.collection('key').update(details, key, (err, result) => {
       if (err) {
           res.send({'error':'An error has occurred'});
       } else {
-          res.send(note);
+          res.send(key);
       } 
     });
   });
 
-  app.delete('/notes/:id', (req, res) => {
+  app.delete('/key/:id', (req, res) => {
     const id = req.params.id;
     const details = { '_id': new ObjectID(id) };
-    db.collection('notes').remove(details, (err, item) => {
+    db.collection('key').remove(details, (err, item) => {
       if (err) {
         res.send({'error':'An error has occurred'});
       } else {
